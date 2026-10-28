@@ -24,6 +24,7 @@
 import datetime
 import logging
 import os
+import uuid
 
 import wandb
 from omegaconf import OmegaConf
@@ -79,7 +80,8 @@ def init_wandb(cfg):
         kwargs["id"] = wandb_cfg.run_id
         kwargs["resume"] = "must"
     else:
-        kwargs["id"] = wandb.util.generate_id()
+        # wandb.util.generate_id was removed in newer wandb releases
+        kwargs["id"] = uuid.uuid4().hex[:8]
     run = wandb.init(**kwargs)
     cfg_dict = dict_flatten(OmegaConf.to_container(cfg))
     run.config.update(cfg_dict)

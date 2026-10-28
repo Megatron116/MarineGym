@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- Prolate spheroid AUV: 1.0 m long x 0.5 m diameter (semi-axes 0.5 x 0.25 x 0.25 m),
+     volume 0.130900 m^3, total mass 130.374 kg (neutral at rho=997.0).
+     4 quad-X thrusters: rotor_0 fwd-port, rotor_1 fwd-stbd, rotor_2 aft-stbd, rotor_3 aft-port; each rotor link +Z is its thrust axis. -->
+<robot name="Spheroid">
+  <material name="hull"><color rgba="0.95 0.75 0.1 1"/></material>
+  <material name="prop"><color rgba="0.1 0.1 0.1 1"/></material>
+  <link name="base_link">
+    <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="129.9740"/>
+      <inertia ixx="3.249349" ixy="0" ixz="0" iyy="8.123373" iyz="0" izz="8.123373"/></inertial>
+    <visual><geometry><mesh filename="meshes/spheroid.obj"/></geometry><material name="hull"/></visual>
+    <collision><geometry><mesh filename="meshes/spheroid.obj"/></geometry></collision>
+  </link>
+  <link name="rotor_0">
+    <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/>
+      <inertia ixx="6.583e-05" ixy="0" ixz="0" iyy="6.583e-05" iyz="0" izz="1.250e-04"/></inertial>
+    <visual><geometry><cylinder radius="0.05" length="0.02"/></geometry><material name="prop"/></visual>
+  </link>
+  <joint name="rotor_0_joint" type="continuous">
+    <parent link="base_link"/><child link="rotor_0"/>
+    <origin xyz="0.400000 0.150000 0.000000" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="rotor_1">
+    <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/>
+      <inertia ixx="6.583e-05" ixy="0" ixz="0" iyy="6.583e-05" iyz="0" izz="1.250e-04"/></inertial>
+    <visual><geometry><cylinder radius="0.05" length="0.02"/></geometry><material name="prop"/></visual>
+  </link>
+  <joint name="rotor_1_joint" type="continuous">
+    <parent link="base_link"/><child link="rotor_1"/>
+    <origin xyz="0.400000 -0.150000 0.000000" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="rotor_2">
+    <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/>
+      <inertia ixx="6.583e-05" ixy="0" ixz="0" iyy="6.583e-05" iyz="0" izz="1.250e-04"/></inertial>
+    <visual><geometry><cylinder radius="0.05" length="0.02"/></geometry><material name="prop"/></visual>
+  </link>
+  <joint name="rotor_2_joint" type="continuous">
+    <parent link="base_link"/><child link="rotor_2"/>
+    <origin xyz="-0.400000 -0.150000 0.000000" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="rotor_3">
+    <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/>
+      <inertia ixx="6.583e-05" ixy="0" ixz="0" iyy="6.583e-05" iyz="0" izz="1.250e-04"/></inertial>
+    <visual><geometry><cylinder radius="0.05" length="0.02"/></geometry><material name="prop"/></visual>
+  </link>
+  <joint name="rotor_3_joint" type="continuous">
+    <parent link="base_link"/><child link="rotor_3"/>
+    <origin xyz="-0.400000 0.150000 0.000000" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+</robot>

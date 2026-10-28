@@ -26,7 +26,9 @@ def init_simulation_app(cfg):
     #     app_experience = f"{os.environ['EXP_PATH']}/omni.isaac.sim.python.gym.headless.kit"
     # else:
     #     app_experience = f"{os.environ['EXP_PATH']}/omni.isaac.sim.python.kit"
-    app_experience = f"{os.environ['EXP_PATH']}/omni.isaac.sim.python.kit"
+    # omni.isaac.sim.python.kit crashes on startup with newer Windows drivers (tested 596.71);
+    # the full app experience works. Override with app_experience=<file>.kit if needed.
+    app_experience = f"{os.environ['EXP_PATH']}/{cfg.get('app_experience', 'omni.isaac.sim.kit')}"
     simulation_app = SimulationApp(config, experience=app_experience)
     
     if config['enable_livestream']:

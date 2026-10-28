@@ -74,6 +74,7 @@ class ArticulationView(_ArticulationView):
             visibilities,
             reset_xform_properties,
         )
+        self._constructed = True
 
     @require_sim_initialized
     def initialize(self, physics_sim_view: omni.physics.tensors.SimulationView = None) -> None:
@@ -244,8 +245,11 @@ class ArticulationView(_ArticulationView):
             return None
 
     def get_world_poses(
-        self, env_indices: Optional[torch.Tensor] = None, clone: bool = True
+        self, env_indices: Optional[torch.Tensor] = None, clone: bool = True, **kwargs
     ) -> Tuple[torch.Tensor, torch.Tensor]:
+        # newer omni.isaac.core calls get_world_poses(usd=...) from its __init__
+        if not getattr(self, "_constructed", False):
+            return super().get_world_poses(env_indices, clone, **kwargs)
         indices = self._resolve_env_indices(env_indices)
         if self._physics_view is not None:
             with disable_warnings(self._physics_sim_view):
@@ -451,6 +455,7 @@ class RigidPrimView(_RigidPrimView):
             disable_stablization,
             contact_filter_prim_paths_expr,
         )
+        self._constructed = True
 
     @require_sim_initialized
     def initialize(self, physics_sim_view: omni.physics.tensors.SimulationView = None):
@@ -459,8 +464,11 @@ class RigidPrimView(_RigidPrimView):
         return self
 
     def get_world_poses(
-        self, env_indices: Optional[torch.Tensor] = None, clone: bool = True
+        self, env_indices: Optional[torch.Tensor] = None, clone: bool = True, **kwargs
     ) -> Tuple[torch.Tensor, torch.Tensor]:
+        # newer omni.isaac.core calls get_world_poses(usd=...) from its __init__
+        if not getattr(self, "_constructed", False):
+            return super().get_world_poses(env_indices, clone, **kwargs)
         indices = self._resolve_env_indices(env_indices)
         pos, rot = super().get_world_poses(indices, clone)
         return pos.unflatten(0, self.shape), rot.unflatten(0, self.shape)
