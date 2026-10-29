@@ -118,13 +118,15 @@ Singular values: 2.000, 1.415, 1.415, 0.800, 0.660, 0.300; the weakest combinati
 | Field | Value | Meaning | Status | Your value |
 |---|---|---|---|---|
 | `num_rotors` | 8 | must equal the number of `rotor_*` links | Fixed | |
-| `force_constants` | 4.4e-07 | scales the T200 thrust curve; 4.4e-07 = stock (~64 N fwd / ~52 N rev) | Stock T200 | |
+| `force_constants` | 1.32e-06 | scales the T200 thrust curve by value / 4.4e-07; 4.4e-07 = stock (~64 N fwd / ~52 N rev), 1.32e-06 = 3× (~193 N fwd / ~155 N rev) | Chosen (3× T200, not a real thruster) | |
 | `time_constants` | 0.01 s | rpm response lag | Copied from BlueROV | |
 | `max_rotation_velocities` | 3900 rpm | rpm clamp | Stock T200 | |
 | `moment_constants` | 1.368e-09 | unused (moments zeroed) | Copied | |
 | `directions` | ±1 alternating | spin direction, unused (moments zeroed) | Copied | |
 
-Total authority: about 256 N up or down (4 vertical), about 180 N forward or sideways (4 horizontal at 45°).
+Total authority at 3× thrust: about 770 N up (4 vertical), about 545 N forward or sideways (4 horizontal at 45°).
+Estimated top speed at full thrust: ~5.1 m/s forward, ~2.1 m/s sideways; forward acceleration ~3.5 m/s².
+(Stock T200, 4.4e-07: ~256 N up, ~180 N horizontal, ~2.9 / ~1.2 m/s.)
 
 ## 5. Isaac Sim import and remaining steps
 

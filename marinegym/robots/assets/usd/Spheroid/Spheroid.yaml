@@ -39,8 +39,9 @@ hydro_coef:
   - 2.4925
 
 rotor_configuration:
-  # rotor_0..3 vertical, rotor_4..7 horizontal (see Spheroid.urdf). force_constants 4.4e-07 = stock T200
-  # (~64 N forward / ~52 N reverse per thruster in marinegym/actuators/t200.py).
+  # rotor_0..3 vertical, rotor_4..7 horizontal (see Spheroid.urdf). Thrust scales with force_constants / 4.4e-07
+  # (marinegym/actuators/t200.py). 4.4e-07 = stock T200 (~64 N fwd / ~52 N rev per thruster);
+  # set to 1.32e-06 = 3x stock (~193 N fwd / ~155 N rev), a T200-shaped curve scaled up, not a real T200.
   directions:
   - 1.0
   - -1.0
@@ -60,14 +61,14 @@ rotor_configuration:
   - 0.01
   - 0.01
   force_constants:
-  - 4.4e-07
-  - 4.4e-07
-  - 4.4e-07
-  - 4.4e-07
-  - 4.4e-07
-  - 4.4e-07
-  - 4.4e-07
-  - 4.4e-07
+  - 1.32e-06
+  - 1.32e-06
+  - 1.32e-06
+  - 1.32e-06
+  - 1.32e-06
+  - 1.32e-06
+  - 1.32e-06
+  - 1.32e-06
   max_rotation_velocities:
   - 3900
   - 3900
