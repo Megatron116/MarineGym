@@ -1,0 +1,89 @@
+name: Spheroid
+# Generated. Prolate spheroid AUV, 1.0 m x 0.5 m, 4 vertical + 4 vectored-horizontal T200 thrusters, no fins.
+#
+# Mass matrix (analytic, body frame about the hull center):
+#   rigid body: m = 130.374 kg (base_link 130.294 kg + rotors), uniform solid spheroid,
+#     Ixx = 2/5 m b^2 = 3.2573, Iyy = Izz = m (a^2 + b^2)/5 = 8.1434 kg m^2 (about the CG),
+#     CG 0.02 m below the center of buoyancy.
+#   added mass: Lamb's coefficients for a/b = 2 (e = 0.8660):
+#     k1 = 0.2100, k2 = 0.7042, k' = 0.2394, rho*V = 130.507 kg
+#     m11 = k1 rho V, m22 = m33 = k2 rho V, m44 = 0, m55 = m66 = k' rho V (a^2 + b^2)/5
+#
+# Damping is NOT analytic: quadratic terms are drag estimates (Cd axial 0.2, crossflow 0.6,
+# strip theory for pitch/yaw, roll is a guess); linear terms are placeholders. Tune or replace with data.
+
+drag_coef: 0.3
+volume: 0.130900
+coBM: 0.02
+hydro_coef:
+  added_mass:
+  - 27.4084
+  - 91.9044
+  - 91.9044
+  - 0.0
+  - 1.9529
+  - 1.9529
+  linear_damping:
+  - 5.0
+  - 15.0
+  - 15.0
+  - 0.5
+  - 1.0
+  - 1.0
+  quadratic_damping:
+  - 19.576
+  - 117.4563
+  - 117.4563
+  - 0.5
+  - 2.4925
+  - 2.4925
+
+rotor_configuration:
+  # rotor_0..3 vertical, rotor_4..7 horizontal (see Spheroid.urdf). force_constants 4.4e-07 = stock T200
+  # (~64 N forward / ~52 N reverse per thruster in marinegym/actuators/t200.py).
+  directions:
+  - 1.0
+  - -1.0
+  - 1.0
+  - -1.0
+  - 1.0
+  - -1.0
+  - 1.0
+  - -1.0
+  time_constants:
+  - 0.01
+  - 0.01
+  - 0.01
+  - 0.01
+  - 0.01
+  - 0.01
+  - 0.01
+  - 0.01
+  force_constants:
+  - 4.4e-07
+  - 4.4e-07
+  - 4.4e-07
+  - 4.4e-07
+  - 4.4e-07
+  - 4.4e-07
+  - 4.4e-07
+  - 4.4e-07
+  max_rotation_velocities:
+  - 3900
+  - 3900
+  - 3900
+  - 3900
+  - 3900
+  - 3900
+  - 3900
+  - 3900
+  moment_constants:
+  - 1.3677728816219313e-09
+  - 1.3677728816219313e-09
+  - 1.3677728816219313e-09
+  - 1.3677728816219313e-09
+  - 1.3677728816219313e-09
+  - 1.3677728816219313e-09
+  - 1.3677728816219313e-09
+  - 1.3677728816219313e-09
+  num_rotors: 8
